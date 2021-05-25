@@ -35,7 +35,8 @@ public class UserDB {
 			SQLiteConfig config = new SQLiteConfig();
 			Connection connection = DriverManager.getConnection("jdbc:sqlite:/" + "c:/tomcat/user.db", config.toProperties());			
 
-			String query = "INSERT INTO student (name, middleScore, finalScore, created) VALUES ('"+ name + "', " + middleScore + ", " + finalScore + ", datetime('now'))";
+			String query = "INSERT INTO student (name, middleScore, finalScore, created) VALUES ('"
+			+ name + "', " + middleScore + ", " + finalScore + ", datetime('now'))";
 			Statement statement = connection.createStatement();
 			int result = statement.executeUpdate(query);
 			statement.close();
@@ -53,6 +54,7 @@ public class UserDB {
 			Class.forName("org.sqlite.JDBC");
 			SQLiteConfig config = new SQLiteConfig();
 			Connection connection = DriverManager.getConnection("jdbc:sqlite:/" + "c:/tomcat/user.db", config.toProperties());			
+
 			String query = "SELECT * FROM student";
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			ResultSet resultSet = preparedStatement.executeQuery();

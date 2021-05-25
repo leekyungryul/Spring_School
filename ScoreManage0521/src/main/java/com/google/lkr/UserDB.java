@@ -109,6 +109,7 @@ public class UserDB {
 //			쿼리문에 첫번째 물음표에 해당하는 값은 idx으로 맵핑시킨다.
 //			idx값은 위에서 파라미터에 들어가있는 idx이다.
 			preparedStatement.setInt(1, idx);
+//			위의 정보를 가지고 쿼리를 날린 결과물
 			ResultSet resultSet = preparedStatement.executeQuery();
 //			아래는 앞에서 작성한 selectData와 동일하다.
 //			다만 selectData에서는 while문을 이용해서 다음 데이터가 있다면 계속 불러왔지만 지금은 하나의 데이터만 있을것이기 때문에
@@ -137,7 +138,7 @@ public class UserDB {
 			Class.forName("org.sqlite.JDBC");
 			SQLiteConfig config = new SQLiteConfig();
 			Connection connection = DriverManager.getConnection("jdbc:sqlite:/" + "c:/tomcat/user.db", config.toProperties());			
-
+//			이번에는 ?가 다수인 상황이다. 쿼리문에 들어가는 각각의 값들을 아래에서 맵핑시켜주기 위함이다. 
 			String query = "UPDATE student SET name=?, middleScore=?, finalScore=?, created=datetime('now') WHERE idx=?";
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, name);
