@@ -1,0 +1,124 @@
+package com.google.lkr;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+
+@Controller
+public class HomeController {
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String home(Locale locale, Model model) {		
+		return "main";
+	}
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public String createTable(Locale locale, Model model) {
+//		DBCommon <Student> db = new DBCommon<Student>("c:/tomcat/Score0521.db", "student");
+//		db.createTable(new Student());
+		UserDB db = new UserDB();
+		db.createTable();
+		model.addAttribute("m1", "테이블이 생성되었습니다.");
+		return "message";
+	}
+	@RequestMapping(value = "/insert", method = RequestMethod.GET)
+	public String insertData(Locale locale, Model model) {		
+		return "insert";
+	}
+	@RequestMapping(value = "/insertAction", method = RequestMethod.GET)
+	public String insertAction(Locale locale, Model model,
+			@RequestParam("student_name") String name,
+			@RequestParam("middle_score") String midScore,
+			@RequestParam("final_score") String finScore) {		
+		int middleScore = Integer.parseInt(midScore);
+		int finalScore = Integer.parseInt(finScore);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String now = sdf.format(Calendar.getInstance().getTime());
+//		DBCommon<Student> db = new DBCommon<Student>("c:/tomcat/Score0521.db", "student");
+		UserDB db = new UserDB();
+		db.insertAction();
+//		db.insertData(new Student(name, middleScore, finalScore, now));
+		model.addAttribute("m1", "데이터가 입력되었습니다.");
+		return "message";
+	}
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public String show(Locale locale, Model model) {
+		DBCommon<Student> db = new DBCommon<Student>("c:/tomcat/Score0521.db", "student");
+		ArrayList<Student> student = db.selectArrayList(new Student());
+		String html = "";
+		for(int i = 0; i < student.size(); i++) {
+			html += "<tr>";
+			html += "<td>";
+			html += student.get(i).idx;
+			html += "</td>";
+			html += "<td>";
+			html += student.get(i).name;
+			html += "</td>";
+			html += "<td>";
+			html += student.get(i).midScore;
+			html += "</td>";
+			html += "<td>";
+			html += student.get(i).finScore;
+			html += "</td>";
+			html += "<td>";
+			html += student.get(i).date;
+			html += "</td>";
+			html += "<td>";
+			html += "<a href ='update?idx=" + student.get(i).idx + "'>수정하기</a>";
+			html += "</td>";
+			html += "<td>";
+			html += "<a href ='delete?idx=" + student.get(i).idx + "'>삭제하기</a>";
+			html += "</td>";
+			html += "</tr>";
+//			<a href="/delete">삭제하기</a>
+//			<a href ='update?idx=1'>수정하기</a>
+//			System.out.println(html);
+		}
+		model.addAttribute("list", html);
+		return "list";
+	}
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public String delete(Locale locale, Model model, 
+			@RequestParam("idx") int idx) {
+		DBCommon<Student> db = new DBCommon<Student>("c:/tomcat/Score0521.db", "student");
+		Student selectStudent  = db.detailsData(new Student(), idx);
+		db.deleteData(new Student(idx, selectStudent.name, selectStudent.midScore, selectStudent.finScore));
+		model.addAttribute("m1", "데이터가 삭제되었습니다.");
+		return "message";
+	}
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String update(Locale locale, Model model, 
+			@RequestParam("idx") int idx) {
+		DBCommon<Student> db = new DBCommon<Student>("c:/tomcat/Score0521.db", "student");
+		Student selectStudent  = db.detailsData(new Student(), idx);
+		if(selectStudent != null) {
+			model.addAttribute("idx", selectStudent.idx);
+			model.addAttribute("studentName", selectStudent.name);
+			model.addAttribute("middleScore", selectStudent.midScore);
+			model.addAttribute("finalScore", selectStudent.finScore);
+		}
+		return "update";
+	}
+	@RequestMapping(value = "/updateAction", method = RequestMethod.GET)
+	public String updateAtion(Locale locale, Model model, 
+			@RequestParam("idx") int idx,
+			@RequestParam("student_name") String name,
+			@RequestParam("middle_score") String middle_score,
+			@RequestParam("final_score") String final_score) {
+		int midScore = Integer.parseInt(middle_score);
+		int finScore = Integer.parseInt(final_score);
+		DBCommon<Student> db = new DBCommon<Student>("c:/tomcat/Score0521.db", "student");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String now = sdf.format(Calendar.getInstance().getTime());
+		db.updateData(new Student(idx, name, midScore, finScore, now));
+		model.addAttribute("m1", "데이터가 수정되었습니다.");
+		return "message";
+	}
+	
+}

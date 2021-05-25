@@ -1,0 +1,145 @@
+package com.google.lkr;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import org.sqlite.SQLiteConfig;
+
+public class UserDB {
+	public void createTable() {
+		try {
+//			db open
+			Class.forName("org.sqlite.JDBC");
+			SQLiteConfig config = new SQLiteConfig();
+			Connection connection = DriverManager.getConnection("jdbc:sqlite:/" + "c:/tomcat/user.db", config.toProperties());
+//			use
+//			쿼리문 실행
+//			primary 키 잡는방법 확인
+//			"CREATE TABLE " + this.tableName + "(" + query + ");";
+			String query = "CREATE TABLE student(idx INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, middleScore REAL, finalScore REAL, now TEXT)";
+//			sqlite는 정수는 integer, 실수는 real, 문자열은 text
+			Statement statement = connection.createStatement();
+			int result = statement.executeUpdate(query);
+			statement.close();
+//			close
+			connection.close();
+		} catch(Exception e) {
+			
+		}
+	}
+	
+	public void insertAction(String name, double middleScore, double finalScore) {
+		try {
+//			db open
+			Class.forName("org.sqlite.JDBC");
+			SQLiteConfig config = new SQLiteConfig();
+			Connection connection = DriverManager.getConnection("jdbc:sqlite:/" + "c:/tomcat/user.db", config.toProperties());
+//			use
+//			쿼리문 실행
+//			자바에서 날짜만들어서 시간정보 넣어도 되고 db에서 제공하는 날짜함수 사용해도 된다.
+//			아래는 날짜함수 사용(자바에서 현재날짜 생성하는것을 추천)
+//			name은 문자형으로 들어가야하기 때문에 작은따옴표로 감싸주었다.
+			String query = "INSERT INTO student (name, middleScore, finalScore, now) VALUES('"
+					+ name + "'," + middleScore + ", " +finalScore + ", datetime('now'))";
+//			sqlite는 정수는 integer, 실수는 real, 문자열은 text
+			Statement statement = connection.createStatement();
+			int result = statement.executeUpdate(query);
+			statement.close();
+//			close
+			connection.close();
+		} catch(Exception e) {
+			
+		}
+	}
+	
+	public String selectData() {
+		String resultString = "";
+		try {
+//			db open
+			Class.forName("org.sqlite.JDBC");
+			SQLiteConfig config = new SQLiteConfig();
+			Connection connection = DriverManager.getConnection("jdbc:sqlite:/" + "c:/tomcat/user.db", config.toProperties());
+//			use
+			String query = "SELECT * FROM student";
+//			String query = "SELECT * FROM student WHERE name LIKE ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
+//			첫번째 물음표를 %홍%로 바꿔줘
+//			preparedStatement.setString(1, "%홍%");
+			ResultSet resultSet = preparedStatement.executeQuery();
+//			결과물이 resultset이라는 형태로 나온다.
+//			아래 next함수를 실행하면 커서가 한칸씩 이동한다.
+			while(resultSet.next()) {
+				int idx = resultSet.getInt("idx");
+				String name = resultSet.getString("name");
+				double middleScore = resultSet.getDouble("middleScore");
+				double finalScore = resultSet.getDouble("finalScore");
+				String now = resultSet.getString("now");
+				resultString = resultString + "<tr>";
+				resultString = resultString + "<td>" + idx + "</td><td>" + name + "</td><td>" + middleScore
+						+ "</td><td>" + finalScore + "</td><td>" + now + "</td><td><a href='update?idx=\" + idx + \"'>수정하기</a></td>";
+				resultString = resultString + "</tr>";
+				
+			}
+			preparedStatement.close();
+//			close
+			connection.close();
+		} catch(Exception e) {
+		}
+		return resultString;
+	}
+	
+	public Student detailsData(int idx) {
+		Student resultData = new Student();
+		try {
+			// open
+			Class.forName("org.sqlite.JDBC");
+			SQLiteConfig config = new SQLiteConfig();
+			Connection connection = DriverManager.getConnection("jdbc:sqlite:/" + "c:/tomcat/user.db", config.toProperties());			
+
+			String query = "SELECT * FROM student WHERE idx=?";
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, idx);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if(resultSet.next()) {
+				resultData.idx = resultSet.getInt("idx");
+				resultData.name = resultSet.getString("name");
+				resultData.middleScore = resultSet.getDouble("middleScore");
+				resultData.finalScore = resultSet.getDouble("finalScore");
+				resultData.created = resultSet.getString("created");
+			}
+			preparedStatement.close();
+			
+			// close
+			connection.close();
+		} catch (Exception e) {
+		}
+		return resultData;
+	}
+	
+	public void updateData(int idx, String name, double middleScore, double finalScore) {
+		try {
+			// open
+			Class.forName("org.sqlite.JDBC");
+			SQLiteConfig config = new SQLiteConfig();
+			Connection connection = DriverManager.getConnection("jdbc:sqlite:/" + "c:/tomcat/user.db", config.toProperties());			
+
+			String query = "UPDATE student SET name=?, middleScore=?, finalScore=?, created=datetime('now') WHERE idx=?";
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, name);
+			preparedStatement.setDouble(2, middleScore);
+			preparedStatement.setDouble(3, finalScore);
+			preparedStatement.setInt(4, idx);
+			int result = preparedStatement.executeUpdate();
+			preparedStatement.close();
+			
+			// close
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+}
