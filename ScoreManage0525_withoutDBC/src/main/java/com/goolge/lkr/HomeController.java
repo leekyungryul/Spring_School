@@ -44,6 +44,8 @@ public class HomeController {
 	public String insert(Locale locale, Model model) {
 		return "insert";
 	}
+//	입력할때도 반명을 선택하는 페이지를 먼저 불러올 수 있도록 설계해본다.
+	
 //	반명을 입력받아서 데이터 입력
 	@RequestMapping(value = "/insert_action", method = RequestMethod.GET)
 	public String insertAction(Locale locale, Model model, @RequestParam("student_name") String name,

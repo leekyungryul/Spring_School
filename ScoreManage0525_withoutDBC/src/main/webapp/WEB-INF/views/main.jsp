@@ -13,8 +13,8 @@
     <section class="wrap">
    	    <a href="listSelect">목록 보기</a>
   	    <a href="listSelect_midSort">중간고사 성적순으로 보기</a>
-        <a href="list3">기말고사 성적순으로 보기</a>
-        <a href="list4">평균점수 성적순으로 보기</a>
+        <a href="listSelect_finSort">기말고사 성적순으로 보기</a>
+        <a href="listSelect_avgSort">평균점수 성적순으로 보기</a>
         <a href="insert">데이터 입력</a>
         <a href="create">테이블 생성</a>
     </section>
