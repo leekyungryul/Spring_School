@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aop-reference-model>
 <aop-project name="ScoreManage0521"/>
+<aop-project name="ScoreManage0525_withoutDBC"/>
 <aop-project name="Project500"/>
 </aop-reference-model>
