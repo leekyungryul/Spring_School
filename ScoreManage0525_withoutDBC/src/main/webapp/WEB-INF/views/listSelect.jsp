@@ -12,14 +12,9 @@
 <body>
     <section class="wrap">
     	<form action="list">
-    		<label> 1반 : 
-    			<input type="submit" name="class" value="class1" /><br><br>
+    		<label> 이름 : 
+    			<input type="submit" name="class" value="${nameame }" /><br><br>
    			</label>
-   			<label> 2반 : 
-    			<input type="submit" name="class" value="class2" /><br><br>
-   			</label>
-            
-            <!-- <input type="submit" value="입력 완료" /> -->
         </form>
     </section>
     

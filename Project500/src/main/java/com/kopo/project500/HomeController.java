@@ -17,32 +17,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String listMethod(Locale locale, Model model) {
-//		DBCommon<Student> db = new DBCommon<Student>("c:/tomcat/p500.db", "student");
-//		ArrayList<Student> student = db.selectArrayList(new Student());
-//		String htmlString = "";
-//		for (int i = 0; i < student.size(); i++) {
-//			htmlString = htmlString + "<tr>";
-//			htmlString = htmlString + "<td>";
-//			htmlString = htmlString + student.get(i).idx;
-//			htmlString = htmlString + "</td>";
-//			htmlString = htmlString + "<td>";
-//			htmlString = htmlString + student.get(i).name;
-//			htmlString = htmlString + "</td>";
-//			htmlString = htmlString + "<td>";
-//			htmlString = htmlString + student.get(i).middleScore;
-//			htmlString = htmlString + "</td>";
-//			htmlString = htmlString + "<td>";
-//			htmlString = htmlString + student.get(i).finalScore;
-//			htmlString = htmlString + "</td>";
-//			htmlString = htmlString + "<td>";
-//			htmlString = htmlString + student.get(i).created;
-//			htmlString = htmlString + "</td>";
-//			htmlString = htmlString + "<td>";
-//			htmlString = htmlString + "<a href='update?idx=" + student.get(i).idx + "'>수정하기</a>";
-//			htmlString = htmlString + "</td>";
-//			htmlString = htmlString + "</tr>";
-//		}
-//		model.addAttribute("list", htmlString);
+
 		
 		UserDB db = new UserDB();
 		String htmlString = db.selectData();
@@ -98,13 +73,7 @@ public class HomeController {
 			, @RequestParam("idx") int idx
 			, @RequestParam("student_name") String sName
 			, @RequestParam("middle_score") String middleScoreString, @RequestParam("final_score") String finalScoreString) {
-//		int middleScore = Integer.parseInt(middleScoreString);
-//		int finalScore = Integer.parseInt(finalScoreString);
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//		String now = sdf.format(Calendar.getInstance().getTime());
-//
-//		DBCommon<Student> db = new DBCommon<Student>("c:/tomcat/p500.db", "student");
-//		db.updateData(new Student(idx, sName, middleScore, finalScore, now));
+
 		
 		UserDB db = new UserDB();
 		double middleScore = Double.parseDouble(middleScoreString);

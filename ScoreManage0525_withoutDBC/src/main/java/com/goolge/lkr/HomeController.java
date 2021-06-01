@@ -18,7 +18,7 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 		return "main";
 	}
-
+//	student이름으로만 테이블 생성(테이블 이름 입력불가)
 	@RequestMapping(value = "/create_table", method = RequestMethod.GET)
 	public String createTable(Locale locale, Model model) {
 		UserDB db = new UserDB();
@@ -39,7 +39,7 @@ public class HomeController {
 		model.addAttribute("m1", "테이블이 생성되었습니다.");
 		return "message";
 	}
-
+//	반이름부터 입력을 받는다.	
 	@RequestMapping(value = "/insert", method = RequestMethod.GET)
 	public String insert(Locale locale, Model model) {
 		return "insert";

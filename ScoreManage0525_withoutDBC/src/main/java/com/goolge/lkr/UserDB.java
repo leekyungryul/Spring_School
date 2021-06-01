@@ -57,6 +57,7 @@ public class UserDB {
 			+ name + "', " + middleScore + ", " + finalScore + ", datetime('now'))";
 			Statement statement = connection.createStatement();
 			int result = statement.executeUpdate(query);
+			System.out.println(query);
 			statement.close();
 			
 			// close
@@ -84,7 +85,7 @@ public class UserDB {
 				resultString += "<tr>";
 				resultString += "<td>" + idx + "</td>" + "<td>" + name + "</td>" + "<td>" + middleScore + "</td>"
 						+ "<td>" + finalScore + "</td>" +"<td>" + (middleScore+finalScore)/2 + "</td>" + "<td>" + date + "</td>" + "<td>" + "<a href='update?idx="	+ idx + "'>수정하기 </a></td>" + "<td>" + "<a href='delete?idx="	+ idx + "'>삭제하기 </a></td>";
-				resultString += "<tr>";
+				resultString += "</tr>";
 			}
 			preparedStatement.close();
 			connection.close();
