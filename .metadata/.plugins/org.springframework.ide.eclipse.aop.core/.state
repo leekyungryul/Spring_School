@@ -4,7 +4,7 @@
 <aop-project name="Ex"/>
 <aop-project name="ScoreManage0521"/>
 <aop-project name="ProjectA"/>
+<aop-project name="Project0602"/>
+<aop-project name="Project0604"/>
 <aop-project name="ScoreManage0525_withoutDBC"/>
-<aop-project name="Project500"/>
-<aop-project name="0601_my"/>
 </aop-reference-model>

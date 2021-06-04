@@ -74,10 +74,7 @@ public class UserDB {
 			if (result < 1) {
 				return false;
 			}
-//			statement.close();
 			preparedStatement.close();
-
-			// close
 			connection.close();
 		} catch (Exception e) {
 			e.printStackTrace();

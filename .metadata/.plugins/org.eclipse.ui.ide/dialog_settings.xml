@@ -7,6 +7,9 @@
 		<item key="WizardProjectsImportPage.STORE_CLOSE_CREATED_PROJECTS_ID" value="false"/>
 		<item key="WizardProjectsImportPage.STORE_HIDE_CONFLICTING_PROJECTS_ID" value="false"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="C:\Users\SMART-25\Downloads\javaSpring_home-master\javaSpring_home-master\Project0602"/>
+			<item value="C:\Users\SMART-25\Downloads\Spring_School-master\Spring_School-master\ProjectA"/>
+			<item value="C:\Users\SMART-25\Downloads\ProjectA (1)"/>
 			<item value="C:\Users\SMART-25\Downloads\ProjectA"/>
 			<item value="C:\Users\SMART-25\OneDrive - 한국폴리텍대학\바탕 화면\21년 강의자료\조영철 교수님\잠깐\--master"/>
 			<item value="C:\Users\SMART-25\OneDrive - 한국폴리텍대학\바탕 화면\21년 강의자료\조영철 교수님\StudentScore0525"/>
@@ -16,5 +19,9 @@
 		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
 			<item value=""/>
 		</list>
+	</section>
+	<section name="ResourceNavigator">
+		<item key="ResourceViewer.STORE_SORT_TYPE" value="1"/>
+		<item key="ResourceWorkingSetFilter.STORE_WORKING_SET" value="Aggregate for window 1621901202515"/>
 	</section>
 </section>
